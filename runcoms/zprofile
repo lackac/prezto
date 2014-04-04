@@ -94,6 +94,23 @@ if [[ -d ${ZDOTDIR:-$HOME}/.rbenv/bin ]]; then
   eval "$(rbenv init - zsh)"
 fi
 
+# rvm (e.g. for nitrous.io)
+if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+  path=(${ZDOTDIR:-$HOME}/.rvm/bin $path)
+  source "$HOME/.rvm/scripts/rvm"
+fi
+
+# nvm
+if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
+  source "$HOME/.nvm/nvm.sh"
+fi
+
+# autoparts (for nitrous.io)
+if [[ -d ${ZDOTDIR:-$HOME}/.parts/autoparts/bin ]]; then
+  path=(${ZDOTDIR:-$HOME}/.parts/autoparts/bin $path)
+  eval "$(parts init -)"
+fi
+
 #
 # Other environment variables
 #

@@ -12,3 +12,30 @@ fi
 
 # Customize to your needs...
 
+if [[ -s ${ZDOTDIR:-$HOME}/.tmuxinator/scripts/tmuxinator ]]; then
+  source ${ZDOTDIR:-$HOME}/.tmuxinator/scripts/tmuxinator
+fi
+
+source ${ZDOTDIR:-$HOME}/.zsh/aliases.zsh
+
+# Load custom function definitions from ${ZDOTDIR:-$HOME}/.zsh/functions
+fpath=(${ZDOTDIR:-$HOME}/.zsh/functions $fpath)
+autoload -U ${ZDOTDIR:-$HOME}/.zsh/functions/*(:t)
+compinit -i
+
+# Init ssp command
+if [[ -x /Users/LacKac/Code/sspinc/ssp/bin/ssp ]]; then
+  eval "$(/Users/LacKac/Code/sspinc/ssp/bin/ssp init -)"
+fi
+
+# autocompletion for aws cli
+source ${ZDOTDIR:-$HOME}/.zsh/aws_zsh_completer.sh
+
+# k.sh
+if [[ -s ${ZDOTDIR:-$HOME}/Code/supercrabtree/k/k.sh ]]; then
+  source ${ZDOTDIR:-$HOME}/Code/supercrabtree/k/k.sh
+fi
+
+if [[ -s ${ZDOTDIR:-$HOME}/.zshrc.local ]]; then
+  source ${ZDOTDIR:-$HOME}/.zshrc.local
+fi

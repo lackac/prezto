@@ -17,8 +17,8 @@ fi
 # Editors
 #
 
-export EDITOR='nano'
-export VISUAL='nano'
+export EDITOR='vim'
+export VISUAL='vim'
 export PAGER='less'
 
 #
@@ -43,8 +43,12 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
+  ~/bin
+  ~/.prygems/bin
+  /opt/chef/bin
   /usr/local/{bin,sbin}
-  $path
+  /usr/{bin,sbin}
+  /{bin,sbin}
 )
 
 #
@@ -75,3 +79,41 @@ if [[ ! -d "$TMPPREFIX" ]]; then
   mkdir -p "$TMPPREFIX"
 fi
 
+#
+# Tools
+#
+
+# direnv
+eval "$(direnv hook zsh)"
+
+# rbenv
+path=(${ZDOTDIR:-$HOME}/.rbenv/bin $path)
+eval "$(rbenv init - zsh)"
+
+#
+# Other environment variables
+#
+
+export RUBY_GC_MALLOC_LIMIT=1000000000
+export RUBY_HEAP_FREE_MIN=500000
+export RUBY_HEAP_MIN_SLOTS=40000
+
+if [[ -f /usr/local/opt/curl-ca-bundle/share/ca-bundle.crt ]]; then
+  export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
+fi
+
+if [[ -d /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home/ ]]; then
+  export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home/
+fi
+
+if [[ -d /usr/local/opt/android-sdk ]]; then
+  export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
+fi
+
+if [[ -s ${ZDOTDIR:-$HOME}/.aws/env ]]; then
+  source ${ZDOTDIR:-$HOME}/.aws/env
+fi
+
+if [[ -s ${ZDOTDIR:-$HOME}/.zprofile.local ]]; then
+  source ${ZDOTDIR:-$HOME}/.zprofile.local
+fi

@@ -20,7 +20,7 @@ source ${ZDOTDIR:-$HOME}/.zsh/aliases.zsh
 
 # Load custom function definitions from ${ZDOTDIR:-$HOME}/.zsh/functions
 fpath=(${ZDOTDIR:-$HOME}/.zsh/functions $fpath)
-autoload -U ${ZDOTDIR:-$HOME}/.zsh/functions/*(:t)
+autoload -Uz ${ZDOTDIR:-$HOME}/.zsh/functions/*(:t)
 compinit -i
 
 # Init ssp command
@@ -29,7 +29,9 @@ if [[ -x /Users/LacKac/Code/sspinc/ssp/bin/ssp ]]; then
 fi
 
 # autocompletion for aws cli
-source ${ZDOTDIR:-$HOME}/.zsh/aws_zsh_completer.sh
+if [[ -s /usr/local/share/zsh/site-functions/_aws ]]; then
+  source /usr/local/share/zsh/site-functions/_aws
+fi
 
 # k.sh
 if [[ -s ${ZDOTDIR:-$HOME}/Code/supercrabtree/k/k.sh ]]; then

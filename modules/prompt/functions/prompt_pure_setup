@@ -1,0 +1,106 @@
+# Pure
+# by Sindre Sorhus
+# https://github.com/sindresorhus/pure/
+# MIT License
+#
+# Adapted for Prezto by Laszlo Bacsi
+
+# For my own and others sanity
+# git:
+# %b => current branch
+# %u => unstaged changes
+# %c => staged changes
+# %a => current action (rebase/merge)
+# prompt:
+# %F => color dict
+# %f => reset color
+# %~ => current path
+# %* => time
+# %n => username
+# %m => shortname host
+# %(?..) => prompt conditional - %(condition.true.false)
+
+function prompt_pure_preexec {
+  cmd_timestamp=`date +%s`
+}
+
+function prompt_pure_precmd {
+  vcs_info
+
+  if (( $+commands[rbenv] )); then
+    local default_version=$(rbenv global)
+    local current_version=$(rbenv version-name)
+    if [[ $current_version != $default_version ]]; then
+      rbenv_version_msg_=" $current_version"
+    else
+      rbenv_version_msg_=""
+    fi
+  fi
+
+  local stop=`date +%s`
+  local start=${cmd_timestamp:-$stop}
+  let local elapsed=$stop-$start
+  if [ $elapsed -gt 5 ]; then
+    cmd_exec_time_msg_=" (${elapsed}s)"
+  else
+    cmd_exec_time_msg_=""
+  fi
+}
+
+function prompt_pure_setup {
+  prompt_opts=(cr percent subst)
+
+  # Only show username if not default
+  if [[ $USER != $1 ]]; then
+    local username='%n@%m '
+  fi
+
+  autoload -Uz add-zsh-hook
+  autoload -Uz vcs_info
+
+  add-zsh-hook preexec prompt_pure_preexec
+  add-zsh-hook precmd prompt_pure_precmd
+
+  zstyle ':vcs_info:*' enable git # You can add hg too if needed: `git hg`
+  # This can in some instances slow down the prompt a little bit.
+  # Comment out if you don't need to know if the repo is dirty.
+  zstyle ':vcs_info:*' check-for-changes true
+  zstyle ':vcs_info:*' unstagedstr '○'
+  zstyle ':vcs_info:*' stagedstr '●'
+  zstyle ':vcs_info:git*' formats ' %b%c%u'
+  zstyle ':vcs_info:git*' actionformats ' %b%c%u|%a'
+
+  # Turns the prompt red if the last command exited with 0
+  # Remove `%*` to hide the time
+  PROMPT='
+%F{blue}%~%F{236}${vcs_info_msg_0_}${rbenv_version_msg_} '${username}'%*%F{yellow}${cmd_exec_time_msg_}%f
+%(?.%F{green}.%F{red})❯%f '
+}
+
+function prompt_pure_help {
+  cat <<EOH
+This prompt's default username is customizable
+
+  prompt pure marvin
+
+If this option is not provided, the username will always be displayed
+EOH
+}
+
+function prompt_pure_preview {
+  local +h PROMPT='%# '
+  local +h RPROMPT=''
+  local +h SPROMPT=''
+
+  if (( $# > 0 )); then
+    prompt_preview_theme 'pure' "$@"
+  else
+    prompt_preview_theme 'pure' marvin
+    print
+    prompt_preview_theme 'pure' $USER
+    print
+    prompt_preview_theme 'pure'
+  fi
+}
+
+prompt_pure_setup "$@"

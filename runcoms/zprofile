@@ -84,11 +84,15 @@ fi
 #
 
 # direnv
-eval "$(direnv hook zsh)"
+if (( $+commands[direnv] )); then
+  eval "$(direnv hook zsh)"
+fi
 
 # rbenv
-path=(${ZDOTDIR:-$HOME}/.rbenv/bin $path)
-eval "$(rbenv init - zsh)"
+if [[ -d ${ZDOTDIR:-$HOME}/.rbenv/bin ]]; then
+  path=(${ZDOTDIR:-$HOME}/.rbenv/bin $path)
+  eval "$(rbenv init - zsh)"
+fi
 
 #
 # Other environment variables

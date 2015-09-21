@@ -23,19 +23,26 @@ fpath=(${ZDOTDIR:-$HOME}/.zsh/functions $fpath)
 autoload -Uz ${ZDOTDIR:-$HOME}/.zsh/functions/*(:t)
 compinit -i
 
-# Init ssp command
-if [[ -x /Users/LacKac/Code/sspinc/ssp/bin/ssp ]]; then
-  eval "$(/Users/LacKac/Code/sspinc/ssp/bin/ssp init -)"
-fi
-
 # autocompletion for aws cli
 if [[ -s /usr/local/share/zsh/site-functions/_aws ]]; then
   source /usr/local/share/zsh/site-functions/_aws
 fi
 
+Code=${ZDOTDIR:-$HOME}/Code
+
+# cplus
+if [[ -d $Code/CPlus/cplus/bin ]]; then
+  eval "$($Code/CPlus/cplus/bin/cplus init -)"
+fi
+
+# overcommit
+if (( $+commands[overcommit] )); then
+  export GIT_TEMPLATE_DIR=`overcommit --template-dir`
+fi
+
 # k.sh
-if [[ -s ${ZDOTDIR:-$HOME}/Code/supercrabtree/k/k.sh ]]; then
-  source ${ZDOTDIR:-$HOME}/Code/supercrabtree/k/k.sh
+if [[ -s $Code/supercrabtree/k/k.sh ]]; then
+  source $Code/supercrabtree/k/k.sh
 fi
 
 if [[ -s ${ZDOTDIR:-$HOME}/.zshrc.local ]]; then

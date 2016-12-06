@@ -73,7 +73,7 @@ function prompt_pure_setup {
   # Turns the prompt red if the last command exited with 0
   # Remove `%*` to hide the time
   PROMPT='
-%F{blue}%~%F{236}${vcs_info_msg_0_}${rbenv_version_msg_} '${username}'%*%F{yellow}${cmd_exec_time_msg_}%f
+%F{green}%m%f:%F{blue}%~%F{236}${vcs_info_msg_0_}${rbenv_version_msg_} '${username}'%*%F{yellow}${cmd_exec_time_msg_}%f
 %(?.%F{green}.%F{red})❯%f '
 }
 

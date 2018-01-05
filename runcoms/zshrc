@@ -35,6 +35,11 @@ fi
 
 Code=${ZDOTDIR:-$HOME}/Code
 
+# 100s
+if [[ -d $Code/100Starlings/100s/bin ]]; then
+  eval "$($Code/100Starlings/100s/bin/100s init -)"
+fi
+
 # cplus
 if [[ -d $Code/CPlus/cplus/bin ]]; then
   eval "$($Code/CPlus/cplus/bin/cplus init -)"

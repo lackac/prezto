@@ -96,13 +96,9 @@ fi
 # rbenv
 if [[ -d ${ZDOTDIR:-$HOME}/.rbenv/bin ]]; then
   path=(${ZDOTDIR:-$HOME}/.rbenv/bin $path)
-  eval "$(rbenv init - zsh)"
 fi
-
-# rvm (e.g. for nitrous.io)
-if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
-  path=(${ZDOTDIR:-$HOME}/.rvm/bin $path)
-  source "$HOME/.rvm/scripts/rvm"
+if (( $+commands[rbenv] )); then
+  eval "$(rbenv init - zsh)"
 fi
 
 # nvm
@@ -110,23 +106,9 @@ if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
   source "$HOME/.nvm/nvm.sh"
 fi
 
-# autoparts (for nitrous.io)
-if [[ -d ${ZDOTDIR:-$HOME}/.parts/autoparts/bin ]]; then
-  path=(${ZDOTDIR:-$HOME}/.parts/autoparts/bin $path)
-  eval "$(parts init -)"
-fi
-
 #
 # Other environment variables
 #
-
-export RUBY_GC_OLDMALLOC_LIMIT=128000000
-export RUBY_GC_MALLOC_LIMIT=128000000
-export RUBY_GC_HEAP_SLOTS_GROWTH_FACTOR=1.25
-export RUBY_GC_HEAP_GROWTH_MAX_SLOTS=300000
-export RUBY_GC_HEAP_INIT_SLOTS=1600000
-export RUBY_GC_HEAP_FREE_SLOTS=600000
-export RUBY_GC_HEAP_OLDOBJECT_LIMIT_FACTOR=1.3
 
 if [[ -f /usr/local/opt/curl-ca-bundle/share/ca-bundle.crt ]]; then
   export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt

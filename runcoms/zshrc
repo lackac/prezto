@@ -55,6 +55,12 @@ if [[ -s $Code/supercrabtree/k/k.sh ]]; then
   source $Code/supercrabtree/k/k.sh
 fi
 
+# asdf
+if [[ -f ${ZDOTDIR:-$HOME}/.asdf/asdf.sh ]]; then
+  source ${ZDOTDIR:-$HOME}/.asdf/asdf.sh
+  source ${ZDOTDIR:-$HOME}/.asdf/completions/asdf.bash
+fi
+
 if [[ -s ${ZDOTDIR:-$HOME}/.zshrc.local ]]; then
   source ${ZDOTDIR:-$HOME}/.zshrc.local
 fi

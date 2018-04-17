@@ -101,11 +101,6 @@ if (( $+commands[rbenv] )); then
   eval "$(rbenv init - zsh)"
 fi
 
-# nvm
-if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
-  source "$HOME/.nvm/nvm.sh"
-fi
-
 #
 # Other environment variables
 #

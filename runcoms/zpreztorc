@@ -16,7 +16,7 @@
 zstyle ':prezto:*:*' color 'yes'
 
 # Add additional directories to load prezto modules from
-# zstyle ':prezto:load' pmodule-dirs $HOME/.zprezto-contrib
+zstyle ':prezto:load' pmodule-dirs $HOME/.zprezto-contrib
 
 # Allow module overrides when pmodule-dirs causes module name collisions
 # zstyle ':prezto:load' pmodule-allow-overrides 'yes'
@@ -38,12 +38,17 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'archive' \
-  'node' \
-  'history-substring-search' \
+  'osx' \
+  'ssh' \
   'completion' \
   'syntax-highlighting' \
-  'prompt'
-
+  'history-substring-search' \
+  'autosuggestions' \
+  'prompt' \
+  'shortcuts' \
+  'tools' \
+  'temp' \
+  'misc'
 #
 # Autosuggestions
 #
@@ -163,7 +168,7 @@ zstyle ':prezto:module:prompt' theme 'pure' LacKac
 #
 
 # Set the SSH identities to load into the agent.
-# zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'id_rsa2' 'id_github'
+zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'strong_rsa'
 
 #
 # Syntax Highlighting

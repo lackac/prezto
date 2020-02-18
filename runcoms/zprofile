@@ -70,58 +70,6 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
 
-#
-# Temporary Files
-#
-
-if [[ ! -d "$TMPDIR" ]]; then
-  export TMPDIR="/tmp/$LOGNAME"
-  mkdir -p -m 700 "$TMPDIR"
-fi
-
-TMPPREFIX="${TMPDIR%/}/zsh"
-if [[ ! -d "$TMPPREFIX" ]]; then
-  mkdir -p "$TMPPREFIX"
-fi
-
-#
-# Tools
-#
-
-# direnv
-if (( $+commands[direnv] )); then
-  eval "$(direnv hook zsh)"
-fi
-
-# rbenv
-if [[ -d ${ZDOTDIR:-$HOME}/.rbenv/bin ]]; then
-  path=(${ZDOTDIR:-$HOME}/.rbenv/bin $path)
-fi
-if (( $+commands[rbenv] )); then
-  eval "$(rbenv init - zsh)"
-fi
-
-#
-# Other environment variables
-#
-
-export ERL_FLAGS="-kernel shell_history enabled"
-
-export GOPATH=${ZDOTDIR:-$HOME}/.go
-path=($GOPATH/bin $path)
-
-if [[ -d /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home/ ]]; then
-  export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home/
-fi
-
-if [[ -d /usr/local/opt/android-sdk ]]; then
-  export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
-fi
-
-if [[ -s ${ZDOTDIR:-$HOME}/.aws/env ]]; then
-  source ${ZDOTDIR:-$HOME}/.aws/env
-fi
-
 if [[ -s ${ZDOTDIR:-$HOME}/.zprofile.local ]]; then
   source ${ZDOTDIR:-$HOME}/.zprofile.local
 fi

@@ -30,6 +30,7 @@ if [[ -s /usr/local/share/zsh/site-functions/_aws ]]; then
 fi
 
 Code=${ZDOTDIR:-$HOME}/Code
+Starling="${ZDOTDIR:-$HOME}/Dropbox/Work/Starling One"
 
 # asdf
 if [[ -f ${ZDOTDIR:-$HOME}/.asdf/asdf.sh ]]; then
